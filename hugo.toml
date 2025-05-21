@@ -1,0 +1,4 @@
+baseURL = 'https://ebobrow.github.io/'
+languageCode = 'en-us'
+title = "Elliot's Blog"
+theme = 'no-style-please'
