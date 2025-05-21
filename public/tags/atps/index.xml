@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ATPs on Elliot&#39;s Blog</title>
+    <link>http://localhost:1313/tags/atps/</link>
+    <description>Recent content in ATPs on Elliot&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 May 2025 08:20:28 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/atps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MU Puzzle in Automated Theorem Provers</title>
+      <link>http://localhost:1313/posts/miu/</link>
+      <pubDate>Wed, 21 May 2025 08:20:28 -0700</pubDate>
+      <guid>http://localhost:1313/posts/miu/</guid>
+      <description>&lt;p&gt;I recently began re-reading &lt;em&gt;Gödel, Escher, Bach&lt;/em&gt; and was intrigued by the MU&#xA;puzzle, which is Hofstadter&amp;rsquo;s introduction to formal systems. The puzzle is&#xA;this: the MIU language consists of the &amp;ldquo;axiom&amp;rdquo; &lt;em&gt;MI&lt;/em&gt; as well as all strings&#xA;constructed according to the following four rules.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;If you have the string &lt;em&gt;xI&lt;/em&gt;, then you can construct the string &lt;em&gt;xIU&lt;/em&gt; (where&#xA;&lt;em&gt;x&lt;/em&gt; is any string of any length).&lt;/li&gt;&#xA;&lt;li&gt;If you have &lt;em&gt;Mx&lt;/em&gt;, then you can construct &lt;em&gt;Mxx&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;III&lt;/em&gt; appears anywhere in a string, you can replace it with &lt;em&gt;U&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;UU&lt;/em&gt; appears anywhere in a string, you can remove it.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Can you ever construct the string &lt;em&gt;MI&lt;/em&gt;?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

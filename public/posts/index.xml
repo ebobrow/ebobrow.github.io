@@ -6,7 +6,21 @@
     <description>Recent content in Posts on Elliot&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Wed, 21 May 2025 14:57:23 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Math</title>
+      <link>http://localhost:1313/posts/math/</link>
+      <pubDate>Wed, 21 May 2025 14:57:23 -0700</pubDate>
+      <guid>http://localhost:1313/posts/math/</guid>
+      <description>&lt;p&gt;Hello $\lambda$.&lt;/p&gt;&#xA;&lt;p&gt;uh \(\lambda\)&lt;/p&gt;&#xA;$$&#xA;\frac{}{\Delta \vdash e : \tau}&#xA;$$&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// oh yeah baby&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;println!&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;or&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () =&amp;gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>MU Puzzle in Automated Theorem Provers</title>
+      <link>http://localhost:1313/posts/miu/</link>
+      <pubDate>Wed, 21 May 2025 08:20:28 -0700</pubDate>
+      <guid>http://localhost:1313/posts/miu/</guid>
+      <description>&lt;p&gt;I recently began re-reading &lt;em&gt;Gödel, Escher, Bach&lt;/em&gt; and was intrigued by the MU&#xA;puzzle, which is Hofstadter&amp;rsquo;s introduction to formal systems. The puzzle is&#xA;this: the MIU language consists of the &amp;ldquo;axiom&amp;rdquo; &lt;em&gt;MI&lt;/em&gt; as well as all strings&#xA;constructed according to the following four rules.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;If you have the string &lt;em&gt;xI&lt;/em&gt;, then you can construct the string &lt;em&gt;xIU&lt;/em&gt; (where&#xA;&lt;em&gt;x&lt;/em&gt; is any string of any length).&lt;/li&gt;&#xA;&lt;li&gt;If you have &lt;em&gt;Mx&lt;/em&gt;, then you can construct &lt;em&gt;Mxx&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;III&lt;/em&gt; appears anywhere in a string, you can replace it with &lt;em&gt;U&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;UU&lt;/em&gt; appears anywhere in a string, you can remove it.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Can you ever construct the string &lt;em&gt;MI&lt;/em&gt;?&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
