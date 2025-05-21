@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="I recently began re-reading Gödel, Escher, Bach and was intrigued by the MU
+puzzle, which is Hofstadter&rsquo;s introduction to formal systems. The puzzle is
+this: the MIU language consists of the &ldquo;axiom&rdquo; MI as well as all strings
+constructed according to the following four rules.
+
+If you have the string xI, then you can construct the string xIU (where
+x is any string of any length).
+If you have Mx, then you can construct Mxx.
+If III appears anywhere in a string, you can replace it with U.
+If UU appears anywhere in a string, you can remove it.
+
+Can you ever construct the string MI?">  
+
+  <title>
+    
+      MU Puzzle in Automated Theorem Provers
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/" />
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.c62f43f3cdfbcb763346b8d44985426ee0ff9e621586a8f505cd11924a91f52bb2b3e8b5054e523e424a6b06b7c7384f5a9467d6a175e40c33c40a7bc42f236c.css" integrity="sha512-xi9D8837y3YzRrjUSYVCbuD/nmIVhqj1Bc0RkkqR9Suys&#43;i1BU5SPkJKawa3xzhPWpRn1qF15AwzxAp7xC8jbA==" />
+  
+</head>
+<body a="auto">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+<a href="/">..</a>
+
+
+<article>
+    <p class="post-meta">
+        <time datetime="2025-05-21 08:20:28 -0700 PDT">
+            2025-05-21
+        </time>
+    </p>
+
+    <h1>MU Puzzle in Automated Theorem Provers</h1>
+
+    
+
+    <p>I recently began re-reading <em>Gödel, Escher, Bach</em> and was intrigued by the MU
+puzzle, which is Hofstadter&rsquo;s introduction to formal systems. The puzzle is
+this: the MIU language consists of the &ldquo;axiom&rdquo; <em>MI</em> as well as all strings
+constructed according to the following four rules.</p>
+<ol>
+<li>If you have the string <em>xI</em>, then you can construct the string <em>xIU</em> (where
+<em>x</em> is any string of any length).</li>
+<li>If you have <em>Mx</em>, then you can construct <em>Mxx</em>.</li>
+<li>If <em>III</em> appears anywhere in a string, you can replace it with <em>U</em>.</li>
+<li>If <em>UU</em> appears anywhere in a string, you can remove it.</li>
+</ol>
+<p>Can you ever construct the string <em>MI</em>?</p>
+<p>Hofstadter&rsquo;s point is that the puzzle cannot be solved from &ldquo;within&rdquo; the system
+&ndash; you can&rsquo;t exhaustively construct every string to determine whether you can
+get <em>MI</em>. However, it is not too hard to solve from &ldquo;outside&rdquo; the system. Note
+that there are two rules that can alter the number of <em>I</em>s in a string. Rule 2
+doubles the number and rule 3 decreases it by three. Since we start with <em>MI</em>,
+which has one <em>I</em>, we can never have a string whose number of <em>I</em>s is divisible
+by three. Doubling a number that is not divisible by three produces a number
+that is not divisible by three, and subtracting three from a number that is not
+divisible three produces another number that is not divisible by three. Since
+<em>MU</em> contains 0 <em>I</em>s, a number which is divisible by 3, is cannot be an MIU
+string.</p>
+<h2 id="coq">Coq</h2>
+<p>I was curious, though, how far you could get by working within the system. I
+started a naive formulation of the puzzle in Coq<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. First, I defined an MIU
+string<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> as a list of elements of the set MIU.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Require</span> <span style="color:#f92672">Import</span> Coq<span style="color:#f92672">.</span>Lists<span style="color:#f92672">.</span>List<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Import</span> ListNotations<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Inductive</span> MIU <span style="color:#f92672">:</span> <span style="color:#f92672">Set</span> <span style="color:#f92672">:=</span> M <span style="color:#f92672">|</span> I <span style="color:#f92672">|</span> U<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Definition</span> MIUString <span style="color:#f92672">:</span> <span style="color:#f92672">Set</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">list</span> MIU<span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>Then I defined an inductive predicate to determine whether an MIU string is
+an element of the MIU language. To avoid confusion, from now on I say a string
+is &ldquo;valid&rdquo; rather than a member of the language.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Inductive</span> validMIUString <span style="color:#f92672">:</span> MIUString <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Prop</span> <span style="color:#f92672">:=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> Ax <span style="color:#f92672">:</span> validMIUString <span style="color:#f92672">[</span>M<span style="color:#f92672">;</span> I<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> R1 <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> x<span style="color:#f92672">,</span> validMIUString <span style="color:#f92672">(</span>x <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>I<span style="color:#f92672">])</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                   validMIUString <span style="color:#f92672">(</span>x <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>I<span style="color:#f92672">;</span> U<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> R2 <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> x<span style="color:#f92672">,</span> validMIUString <span style="color:#f92672">([</span>M<span style="color:#f92672">]</span> <span style="color:#f92672">++</span> x<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                   validMIUString <span style="color:#f92672">([</span>M<span style="color:#f92672">]</span> <span style="color:#f92672">++</span> x <span style="color:#f92672">++</span> x<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> R3 <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> h t<span style="color:#f92672">,</span> validMIUString <span style="color:#f92672">(</span>h <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>I<span style="color:#f92672">;</span> I<span style="color:#f92672">;</span> I<span style="color:#f92672">]</span> <span style="color:#f92672">++</span> t<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                     validMIUString <span style="color:#f92672">(</span>h <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>U<span style="color:#f92672">]</span> <span style="color:#f92672">++</span> t<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> R4 <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> h t<span style="color:#f92672">,</span> validMIUString <span style="color:#f92672">(</span>h <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>U<span style="color:#f92672">;</span> U<span style="color:#f92672">]</span> <span style="color:#f92672">++</span> t<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                     validMIUString <span style="color:#f92672">(</span>h <span style="color:#f92672">++</span> t<span style="color:#f92672">).</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Hint</span> Constructors validMIUString <span style="color:#f92672">:</span> core<span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>Now, the moment of truth. Can Coq&rsquo;s <code>eauto</code> tactic determine whether simple
+strings are valid? I started with what I thought would be a very easy lemma:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Lemma</span> simple <span style="color:#f92672">:</span> validMIUString <span style="color:#f92672">[</span>M<span style="color:#f92672">;</span> I<span style="color:#f92672">;</span> U<span style="color:#f92672">].</span>
+</span></span></code></pre></div><p>Coq could not do this on its own. Let&rsquo;s help it along a little. Here is the
+fully manual proof of <code>simple</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">apply</span> R1 <span style="color:#66d9ef">with</span> <span style="color:#f92672">(</span>x <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span>M<span style="color:#f92672">]).</span> <span style="color:#66d9ef">apply</span> Ax<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>The issue comes when we try to get Coq to guess the variable <em>x</em>. If we instead
+try to call <code>eapply R1</code>, we get the error</p>
+<pre tabindex="0"><code>Unable to unify &#34;validMIUString (?M742 ++ [I; U])&#34; with
+ &#34;validMIUString [M; I; U]&#34;.
+</code></pre><p>This seems like it should be doable, but I guess lists are hard for the
+unification algorithm. You could probably write an Ltac script to do a
+breadth-first search like this, and maybe I will some other time, but that&rsquo;s not
+really my main focus right now.</p>
+<h2 id="isabelle">Isabelle</h2>
+<p>I next tried to do the same thing in Isabelle. My definitions were about the
+same.</p>
+<pre tabindex="0"><code>datatype miu = M | I | U
+
+inductive valid_miu_string :: &#34;miu list ⇒ bool&#34; where
+ax: &#34;valid_miu_string [M, I]&#34; |
+r1: &#34;valid_miu_string (x @ [I]) ⟹ 
+     valid_miu_string (x @ [I, U])&#34; |
+r2: &#34;valid_miu_string (M # x) ⟹ 
+     valid_miu_string (M # x @ x)&#34; |
+r3: &#34;valid_miu_string (h @ [I, I, I] @ t) ⟹ 
+     valid_miu_string (h @ U # t)&#34; |
+r4: &#34;valid_miu_string (h @ [U, U] @ t) ⟹ 
+     valid_miu_string (h @ t)&#34;
+</code></pre><p>Isabelle can do a better job of proving that strings <em>are</em> valid. Using
+Sledgehammer, I found a tactic that seems to work every time.</p>
+<pre tabindex="0"><code>lemma &#34;valid_miu_string [M, U, I, I, U]&#34;
+  by (metis append_Cons append_Nil valid_miu_string.simps)
+</code></pre><p>However, it is just as clueless in proving when things are not valid strings.
+We can prove a theorem like</p>
+<pre tabindex="0"><code>lemma starts_with_M: &#34;valid_miu_string x ⟹ hd x = M&#34;
+proof (induction rule: valid_miu_string.induct)
+  case ax
+  then show ?case by simp
+next
+  case (r1 x)
+  then show ?case
+    by (metis append_Nil hd_append2 list.sel(1))
+next
+  case (r2 x)
+  then show ?case by simp
+next
+  case (r3 h t)
+  then show ?case
+    by (metis hd_append list.discI list.sel(1) miu.distinct(2))
+next
+  case (r4 h t)
+  then show ?case
+    by (metis hd_append list.sel(1) miu.distinct(4))
+qed
+</code></pre><p>which helps us prove when things are not valid strings. This is akin to
+&ldquo;stepping outside the system.&rdquo; But we, the humans, are still responsible for
+having that kind of insight.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>So what did we learn? Not a lot. Welcome to my blog.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>I know it&rsquo;s supposed to be Roqc now but I FINALLY got to a point where I
+could be mature about the name Coq and I don&rsquo;t want to give that up.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Word to the wise: if you&rsquo;re curious whether Coq supports strings natively,
+I would not recommend looking up &ldquo;Coq string.&rdquo;&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+</article>
+
+                
+    
+    
+        
+        <footer class="site-footer">
+            <p>&copy; 2025 Elliot&#39;s Blog</p>
+        </footer>
+    
+
+
+            </div>
+        </main>
+    </body>
+</html>

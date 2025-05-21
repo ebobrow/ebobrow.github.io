@@ -1,12 +1,12 @@
 [[entries]]
-title = "info"
+title = "about"
 
   [[entries.entries]]
-  title = "a (nearly) no-CSS, fast, minimalist Hugo theme ported from <a href='https://github.com/riggraz/no-style-please'>riggraz/no-style-please</a>."
+  title = "I like to teach myself stuff about CS, especially logic and programming languages. This is a record, mostly for myself, of what I am learning. If you are reading this and you are not me, I love you."
 
   [[entries.entries]]
   title = "github repo"
-  url = "https://github.com/hanwenguo/hugo-theme-nostyleplease"
+  url = "https://github.com/ebobrow/ebobrow.github.io"
 
 
 [[entries]]
@@ -18,34 +18,25 @@ title = "all posts"
   show_more_text = "See archive..."
   show_more_url = "posts"
 
-[[entries]]
-title = "posts by category"
+# [[entries]]
+# title = "math"
 
-  [entries.post_list]
-  section = "posts"
-  show_more = true
-  show_more_text = "See more posts..."
-  show_more_url = "posts"
+#   [entries.post_list]
+#   section = "math"
+#   show_more = true
+#   show_more_text = "See more math posts..."
+#   show_more_url = "math"
+
+# [[entries]]
+# title = "PLs"
+
+#   [entries.post_list]
+#   section = "pls"
+#   show_more = true
+#   show_more_text = "See more PLs posts..."
+#   show_more_url = "pls"
 
 [[entries]]
 title = "rss"
 url = "index.xml"
 
-[[entries]]
-title = "another list"
-
-  [[entries.entries]]
-  title = "with subitems"
-
-    [[entries.entries.entries]]
-    title = "with subsubitems"
-
-    [[entries.entries.entries]]
-    title = "example page"
-    url = "about"
-
-[[entries]]
-title = "PRO TIP"
-entries = [
-   { title = "to edit this menu, edit data/menu.toml file" }
-  ]

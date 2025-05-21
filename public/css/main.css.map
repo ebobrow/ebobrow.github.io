@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/home/elliotbobrow/repos/quickstart",
+	"sourceRoot": "/home/elliotbobrow/repos/blog",
 	"sources": [
 		"themes/no-style-please/assets/css/main.scss"
 	],
