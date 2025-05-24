@@ -14,7 +14,9 @@
           {{ .Params.tldr }}
         </div>{{ end }}
         <section class="body">
-          {{ .Content }}
+            <!-- Print the Content but replace the Footnote return link -->
+            {{ $footnoteReturnLink := (printf "${1}%s${2}" "⮠") }}
+            {{ .Content | replaceRE "(<a (?:.*) class=\"footnote-backref\" (?:.*)>)(?:.*)(</a>)" $footnoteReturnLink | safeHTML }}
         </section>
         <div class="post-tags">
           {{ if ne .Type "page" }}
