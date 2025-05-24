@@ -1,0 +1,27 @@
+{{ define "main" }}
+	<main>
+		<article>
+			<h1>{{ .Title }}</h1>
+			<b><time>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time></b>
+		       {{ range .Params.tags }}
+		           <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+        	       {{ end }}
+
+           <!-- TOC -->
+           {{ if isset .Params "toc" }}
+           <div class="toc">
+               <strong>Table of contents:</strong>
+               {{ .TableOfContents }}
+           </div>
+           {{ end }}
+           </div>
+
+			<div>
+                <!-- Print the Content but replace the Footnote return link -->
+                {{ $footnoteReturnLink := (printf "${1}%s${2}" "⮠") }}
+                {{ .Content | replaceRE "(<a (?:.*) class=\"footnote-backref\" (?:.*)>)(?:.*)(</a>)" $footnoteReturnLink | safeHTML }}
+			</div>
+		</article>
+	</main>
+{{ partial "sidebar.html" . }}
+{{ end }}

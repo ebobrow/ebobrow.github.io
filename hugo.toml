@@ -1,39 +1,39 @@
 baseURL = 'https://ebobrow.github.io/'
 languageCode = 'en-us'
 title = "Elliot's Blog"
-theme = 'archie'
+theme = 'smol'
 
-# pygmentsstyle = "monokai"
-# pygmentscodefences = true
-# pygmentscodefencesguesssyntax = true
 [params]
-	mode="dark"
-	useCDN=false
-	subtitle = "_\"Oh good, another blog by a theoretical CS student!\" --- No one_"
+    mode="dark"
+    subtitle = "\"Oh good, another blog by a theoretical CS student!\" - No one"
+    dateFmt = "02.01.2006"
+    customCSS = ["css/custom.css"]
 
-[[menu.main]]
-name = "Home"
-url = "/"
-weight = 1
+# Header
+[menu]
+  [[menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about/"
+        weight = 1
 
-[[menu.main]]
-name = "All posts"
-url = "/posts"
-weight = 2
+  [[menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "/posts/"
+        weight = 2 
 
-[[menu.main]]
-name = "About"
-url = "/about"
-weight = 3
+  [[menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags/"
+        weight = 3
 
-[[menu.main]]
-name = "Tags"
-url = "/tags"
-weight = 4
-
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
+# Footer
+  [[menu.footer]]
+        name = "Github"
+        url = "https://github.com/ebobrow"
+        weight = 1 
 
 [markup]
   [markup.goldmark]
@@ -43,3 +43,7 @@ weight = 4
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)'], ['$', '$']]
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Elliot&#39;s Blog</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>http://localhost:37023/posts/</link>
     <description>Recent content in Posts on Elliot&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 May 2025 21:08:38 -0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 May 2025 19:08:38 -0700</lastBuildDate>
+    <atom:link href="http://localhost:37023/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What even is type theory?</title>
-      <link>http://localhost:1313/posts/type-theory/</link>
-      <pubDate>Wed, 21 May 2025 21:08:38 -0700</pubDate>
-      <guid>http://localhost:1313/posts/type-theory/</guid>
-      <description>&lt;p&gt;The problem with being self-taught in PLs is that I sort of learned everything&#xA;at the same time, which means I did not get a good sense of what things fall in&#xA;what categories. In this post I seek to determine, once and for all, what is&#xA;type theory and what is not.&lt;/p&gt;</description>
+      <link>http://localhost:37023/posts/type-theory/</link>
+      <pubDate>Fri, 23 May 2025 19:08:38 -0700</pubDate>
+      <guid>http://localhost:37023/posts/type-theory/</guid>
+      <description>&lt;p&gt;The problem with being self-taught in PLs is that I sort of learned everything&#xA;at the same time, which means I did not get a good sense of what things fall in&#xA;what categories. In this post I seek to determine, once and for all, what is&#xA;type theory and what is not. To do that, we&amp;rsquo;re going to back it way up and start&#xA;at the very beginning.&lt;/p&gt;&#xA;&lt;h2 id=&#34;logic&#34;&gt;Logic&lt;/h2&gt;&#xA;&lt;p&gt;It&amp;rsquo;s easier to begin to answer this question with what is not type theory.&#xA;In other words, some of the things that I know about typing systems are just&#xA;true of logic in general.&lt;/p&gt;</description>
     </item>
     <item>
       <title>MU Puzzle in Automated Theorem Provers</title>
-      <link>http://localhost:1313/posts/miu/</link>
+      <link>http://localhost:37023/posts/miu/</link>
       <pubDate>Wed, 21 May 2025 08:20:28 -0700</pubDate>
-      <guid>http://localhost:1313/posts/miu/</guid>
+      <guid>http://localhost:37023/posts/miu/</guid>
       <description>&lt;p&gt;I recently began re-reading &lt;em&gt;Gödel, Escher, Bach&lt;/em&gt; and was intrigued by the MU&#xA;puzzle, which is Hofstadter&amp;rsquo;s introduction to formal systems. The puzzle is&#xA;this: the MIU language consists of the &amp;ldquo;axiom&amp;rdquo; &lt;em&gt;MI&lt;/em&gt; as well as all strings&#xA;constructed according to the following four rules.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;If you have the string &lt;em&gt;xI&lt;/em&gt;, then you can construct the string &lt;em&gt;xIU&lt;/em&gt; (where&#xA;&lt;em&gt;x&lt;/em&gt; is any string of any length).&lt;/li&gt;&#xA;&lt;li&gt;If you have &lt;em&gt;Mx&lt;/em&gt;, then you can construct &lt;em&gt;Mxx&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;III&lt;/em&gt; appears anywhere in a string, you can replace it with &lt;em&gt;U&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If &lt;em&gt;UU&lt;/em&gt; appears anywhere in a string, you can remove it.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Can you ever construct the string &lt;em&gt;MI&lt;/em&gt;?&lt;/p&gt;</description>
     </item>
   </channel>

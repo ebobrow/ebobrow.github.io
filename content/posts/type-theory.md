@@ -2,7 +2,8 @@
 date = '2025-05-23T19:08:38-07:00'
 draft = false
 title = 'What even is type theory?'
-tags = ['PLs', 'type theory']
+tags = ['PLs', 'Type Theory']
+toc = true
 +++
 
 The problem with being self-taught in PLs is that I sort of learned everything

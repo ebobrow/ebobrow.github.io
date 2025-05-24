@@ -1,0 +1,15 @@
+body {
+    background: #222;
+    color: #ddd;
+}
+
+div.toc {
+    margin: 1em 0;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.5em 0.5em 0 1em;
+}
+
+code {
+    padding: 0 !important;
+}
