@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=37023&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
 	
 	
 	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css?rnd=1748060561">
+	<link rel="stylesheet" href="/css/custom.css?rnd=1772988335">
 	
     <script>
     MathJax = {
@@ -30,7 +30,7 @@
 <body>
 	<header>
 	===================<br>
-	== <a href="http://localhost:37023/">Elliot&#39;s Blog</a> ==<br>
+	== <a href="http://localhost:1313/">Elliot&#39;s Blog</a> ==<br>
 	===================
 	<div style="float: right;">&#34;Oh good, another blog by a theoretical CS student!&#34; - No one</div><br>
 	<p>
@@ -94,7 +94,7 @@ string.</p>
 <p>I was curious, though, how far you could get by working within the system. I
 started a naive formulation of the puzzle in Coq<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. First, I defined an MIU
 string<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> as a list of elements of the set MIU.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Require</span> <span style="color:#f92672">Import</span> Coq<span style="color:#f92672">.</span>Lists<span style="color:#f92672">.</span>List<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Require</span> <span style="color:#f92672">Import</span> Coq<span style="color:#f92672">.</span>Lists<span style="color:#f92672">.</span>List<span style="color:#f92672">.</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">Import</span> ListNotations<span style="color:#f92672">.</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">Inductive</span> MIU <span style="color:#f92672">:</span> <span style="color:#f92672">Set</span> <span style="color:#f92672">:=</span> M <span style="color:#f92672">|</span> I <span style="color:#f92672">|</span> U<span style="color:#f92672">.</span>
@@ -103,7 +103,7 @@ string<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">
 </span></span></code></pre></div><p>Then I defined an inductive predicate to determine whether an MIU string is
 an element of the MIU language. To avoid confusion, from now on I say a string
 is &ldquo;valid&rdquo; rather than a member of the language.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Inductive</span> validMIUString <span style="color:#f92672">:</span> MIUString <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Prop</span> <span style="color:#f92672">:=</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Inductive</span> validMIUString <span style="color:#f92672">:</span> MIUString <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Prop</span> <span style="color:#f92672">:=</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> Ax <span style="color:#f92672">:</span> validMIUString <span style="color:#f92672">[</span>M<span style="color:#f92672">;</span> I<span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> R1 <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> x<span style="color:#f92672">,</span> validMIUString <span style="color:#f92672">(</span>x <span style="color:#f92672">++</span> <span style="color:#f92672">[</span>I<span style="color:#f92672">])</span> <span style="color:#f92672">-&gt;</span>
@@ -121,10 +121,10 @@ is &ldquo;valid&rdquo; rather than a member of the language.</p>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">Hint</span> Constructors validMIUString <span style="color:#f92672">:</span> core<span style="color:#f92672">.</span>
 </span></span></code></pre></div><p>Now, the moment of truth. Can Coq&rsquo;s <code>eauto</code> tactic determine whether simple
 strings are valid? I started with what I thought would be a very easy lemma:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Lemma</span> simple <span style="color:#f92672">:</span> validMIUString <span style="color:#f92672">[</span>M<span style="color:#f92672">;</span> I<span style="color:#f92672">;</span> U<span style="color:#f92672">].</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Lemma</span> simple <span style="color:#f92672">:</span> validMIUString <span style="color:#f92672">[</span>M<span style="color:#f92672">;</span> I<span style="color:#f92672">;</span> U<span style="color:#f92672">].</span>
 </span></span></code></pre></div><p>Coq could not do this on its own. Let&rsquo;s help it along a little. Here is the
 fully manual proof of <code>simple</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">apply</span> R1 <span style="color:#66d9ef">with</span> <span style="color:#f92672">(</span>x <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span>M<span style="color:#f92672">]).</span> <span style="color:#66d9ef">apply</span> Ax<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-coq" data-lang="coq"><span style="display:flex;"><span><span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">apply</span> R1 <span style="color:#66d9ef">with</span> <span style="color:#f92672">(</span>x <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span>M<span style="color:#f92672">]).</span> <span style="color:#66d9ef">apply</span> Ax<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
 </span></span></code></pre></div><p>The issue comes when we try to get Coq to guess the variable <em>x</em>. If we instead
 try to call <code>eapply R1</code>, we get the error</p>
 <pre tabindex="0"><code>Unable to unify &#34;validMIUString (?M742 ++ [I; U])&#34; with
@@ -204,6 +204,8 @@ I would not recommend looking up &ldquo;Coq string.&rdquo;&#160;<a href="#fnref:
 		<div>
 			<ul>
 				
+				<li><a href="/posts/2025-07-26-semantics/">Semantics</a></li>
+				
 				<li><a href="/posts/type-theory/">What even is type theory?</a></li>
 				
 				<li><a href="/posts/miu/">MU Puzzle in Automated Theorem Provers</a></li>
@@ -215,7 +217,7 @@ I would not recommend looking up &ldquo;Coq string.&rdquo;&#160;<a href="#fnref:
 
 
 	<footer>
-	<p>&copy; 2025 <a href="http://localhost:37023/"><b>Elliot&#39;s Blog</b></a>.
+	<p>&copy; 2026 <a href="http://localhost:1313/"><b>Elliot&#39;s Blog</b></a>.
 	<a href="https://github.com/ebobrow"><b>Github</b></a>.
 	</p>
 </footer>

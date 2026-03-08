@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type=text/css>body{font-family:monospace;}</style>
+	<title>Semantics</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css?rnd=1772989196">
+	
+    <script>
+    MathJax = {
+        tex: {
+            displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+            inlineMath: [['\\(', '\\)'], ['$', '$']],     
+
+            
+        },
+        loader:{
+            load: ['ui/safe']
+        },
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+<body>
+	<header>
+	===================<br>
+	== <a href="http://localhost:1313/">Elliot&#39;s Blog</a> ==<br>
+	===================
+	<div style="float: right;">&#34;Oh good, another blog by a theoretical CS student!&#34; - No one</div><br>
+	<p>
+	<nav>
+			<a href="/"><b>Home</b></a>.
+			
+			
+			<a href="/about/"><b>About</b></a>.
+			
+			<a href="/posts/"><b>Posts</b></a>.
+			
+			<a href="/tags/"><b>Tags</b></a>.
+			
+	</nav>
+	</p>
+	
+</header>
+
+	
+	<main>
+		<article>
+			<h1>Semantics</h1>
+			<b><time>26.07.2025</time></b>
+		       
+		           <a href="/tags/pls">PLs</a>
+        	       
+
+           
+           
+           </div>
+
+			<div>
+                
+                
+                <p>There are two important aspects in the study of programming languages as formal
+mathematical objects: syntax (or statics) and semantics (or dynamics). The syntax
+specification includes an (often inductive) definition of well-formed terms in
+the language, as well as, in typed languages, a specification of the typing
+judgment. There is plenty of interesting stuff to study in syntax, but this blog
+post is about semantics. Semantics is about assigning actual meaning to terms in
+the language. This is important for reasoning about, for example, correctness,
+equivalence, or termination. Depending on your language and use case, there are
+many different ways to specify the semantics. This post is a survey of what I
+have experienced to be the most common ones.</p>
+<h2 id="operational">Operational</h2>
+<p>One common method is operational semantics, which specifies a transition system
+for a language. There are two flavors of operational semantics: small-step (or
+structural) and big-step (or natural). In small-step semantics, we define a
+relation $\rightarrow$ specifying the behavior of individual parts of a program.
+For example, a language with pairs may contain the rules
+</p>
+$$
+\frac{e_1 \rightarrow e_1'}{(e_1,e_2) \rightarrow (e_1', e_2)}
+\qquad
+\frac{e_2 \rightarrow e_2'}{(v_1,e_2) \rightarrow (v_1, e_2')}
+$$<p>
+where $v_1$ denotes a value (a term which cannot be reduced any further).
+Essentially, these rules state that to evaluate a pair, you must &ldquo;reach in&rdquo; to
+the subterms of the pair and evaluate those. The additional requirement that the
+first subterm be a value in the rule on the right is optional and only to ensure
+that the operational semantics are deterministic.</p>
+<p>One important rule in any lambda-calculus system is function application, or
+$\beta$-reduction. In small-step semantics, it is expressed as
+</p>
+$$
+\frac{e_1[e_2/x] \rightarrow e_1'}{(\lambda x. e_1) \, e_2 \rightarrow e_1'}
+$$<p>
+where $e_1[e_2/x]$ represents the substitution of $e_2$ for $x$ in $e_1$. If we
+are using <em>call-by-value</em> semantics, we would first require that $e_2$ reduce to
+a value before applying $\beta$-reduction. On the other hand, in <em>call-by-name</em>
+semantics, we substitute the argument into the function body before reducing it
+at all.</p>
+<p>With small-step operational semantics, we can then define the relation
+$\rightarrow^* $ as the reflexive, transitive closure of $\rightarrow$. The
+judgment $e \rightarrow^* v$ expresses that $e$ eventually reduces to a value by
+some chain of reductions $e \rightarrow e_1 \rightarrow \cdots \rightarrow e_n
+\rightarrow v$.</p>
+<p>The other flavor is big-step operational semantics. This defines the relation
+$\Downarrow$ which essentially serves the same role as $\rightarrow^* $, by
+reducing a term all at once. The analogous big-step rule for pairs would be:
+</p>
+$$
+\frac{e_1 \Downarrow v_1 \qquad e_2 \Downarrow v_2}{(e_1,e_2) \Downarrow (v_1,v_2)}
+$$<p>
+With a single rule application, we are guaranteed to have reduced the term to
+its final value (though of course the derivation tree may be arbitrarily tall).
+Because of this property, the judgment need not be defined to take terms as its
+right-hand side. Since we will not be chaining this judgment, we can output
+whatever we want as the final value of a term. For example, in a language with
+arithmetic, we may wish to output natural numbers. We can define the judgment $e
+\Downarrow n$, where the rule for addition may be:
+</p>
+$$
+\frac{e_1 \Downarrow n_1 \qquad e_2 \Downarrow n_2}{e_1+e_2 \Downarrow n_1+n_2}
+$$<p>
+The subtlety here is that the $+$ on the left-hand side of the conclusion is a
+term-level addition (meaning it is only a symbol with no inherent meaning)
+whereas the $+$ on the right-hand side is addition in the natural numbers, which
+does have a meaning.</p>
+<p>However, we run into issues if we try to define $\beta$-reduction in
+call-by-value semantics. We want to write
+</p>
+$$
+\frac{e_2 \Downarrow n_2 \qquad e_2[n_2/x] \Downarrow n_1}
+     {(\lambda x. e_1)\,e_2 \Downarrow n_1}
+$$<p>
+but the substitution is malformed: How can we substitute a natural number for a
+term? The solution is to introduce a <em>state</em> that maps variables to values. In
+this case, the signature of the state is $S : Var \rightarrow \mathbb{N}$. Now,
+our big-step judgment is of the form $(e,S) \Downarrow n$ and our
+$\beta$-reduction rule is:
+</p>
+$$
+\frac{(e_2,S) \Downarrow n_2 \qquad (e_1, S + \{x \mapsto n_2\}) \Downarrow n_1}
+     {((\lambda x. e_1)\,e_2, S) \Downarrow n_1}
+$$<p>
+Here, the state plays the same role as the typing context in typing judgments:
+it can &ldquo;remember&rdquo; the argument in a rule premise that decomposes the application
+term.</p>
+<h2 id="equational">Equational</h2>
+<p>Very similar to operational semantics is the notion of equational semantics.
+Now, our judgments are of the form $\Gamma \vdash e_1 = e_2 : \tau$. The
+difference between this and small-step operational semantics is that there is no
+&ldquo;directionality.&rdquo; Instead of looking at chains of evaluations, we can instead
+look at equivalence classes of terms, allowing us to replace any term with its
+fully evaluated form.</p>
+<p>I don&rsquo;t have much to say about equational semantics because I don&rsquo;t know a lot
+about them but I&rsquo;m sure they&rsquo;re interesting.</p>
+<h2 id="denotational">Denotational</h2>
+<p>In the above two methods, we never actually assign meaning to terms. We give
+them behavior based on their syntactic structure, which in a way gives them
+meaning. But another method is denotational semantics, which seeks to actually
+map terms into some domain that we already know about. We define an
+interpretation mapping $[\![ - ]\!]$ which takes terms to elements of our domain
+of interest.</p>
+<p>Usually the interpretation is defined recursively. Let&rsquo;s return to our little
+arithmetic language. I think this is worth going into a little more detail, so
+let&rsquo;s fully define the language.
+</p>
+$$
+\begin{align*}
+    t &:= x \mid t_1 \, t_2 \mid (\lambda x:\tau. t) \mid \textbf{S}(t) \mid \textbf{0} \mid \textbf{ifz}(t_1,t_2,t_3) \\
+    \tau &:= \texttt{nat} \mid \tau_1 \rightarrow \tau_2
+\end{align*}
+$$<p>
+Okay I lied when I said &ldquo;fully&rdquo; because I&rsquo;m not actually going to give the
+typing judgment. It&rsquo;s what you think it would be. Now we can define our
+interpretation. For types, we have $[\![\texttt{nat}]\!] = \mathbb{N}$ and
+$[\![\tau_1 \rightarrow \tau_2]\!]=[\![\tau_1]\!] \rightarrow [\![\tau_2]\!]$,
+that is, the set of functions from $[\![\tau_1]\!]$ to $[\![\tau_2]\!]$. For
+contexts, we have $[\![x_1:\tau_1,\dots,x_n:\tau_n]\!] =
+[\![\tau_1]\!]\times\cdots\times[\![\tau_n]\!]$. Finally, for terms, we have
+</p>
+$$
+\begin{align*}
+[\![t_1 \, t_2]\!] &= [\![t_1]\!] ([\![t_2]\!]) \\
+[\![\textbf{0}]\!] &= 0 \\
+[\![\textbf{S}(t)]\!] &= [\![t]\!] + 1 \\
+[\![\textbf{ifz}(t_1,t_2,t_3)]\!] &= \begin{cases}
+    [\![t_2]\!] & \text{if }[\![t_1]\!] = 0 \\
+    [\![t_3]\!] & \text{otherwise}
+\end{cases}
+\end{align*}
+$$<p>
+Finally, we can define the mapping for lambda abstractions:
+</p>
+$$
+[\![\lambda x: \tau. t]\!] = f
+$$<p>
+where
+</p>
+$$
+f(t') = [\![t[t'/x]]\!].
+$$<p>
+In other words, we first substitute $t'$ for $x$ and then find the
+denotation of this new term. Notice that there&rsquo;s no defined denotation for
+variables, because in well-scoped terms we should never have to find the
+denotation of a variable. Things get more complicated when we attempt to define
+recursive functions, but that is an interesting enough topic for its own blog
+post.</p>
+<h2 id="categorical">Categorical</h2>
+<p>TODO: this should be its own post. Some day.</p>
+
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/2025-07-26-semantics/">Semantics</a></li>
+				
+				<li><a href="/posts/type-theory/">What even is type theory?</a></li>
+				
+				<li><a href="/posts/miu/">MU Puzzle in Automated Theorem Provers</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	<footer>
+	<p>&copy; 2026 <a href="http://localhost:1313/"><b>Elliot&#39;s Blog</b></a>.
+	<a href="https://github.com/ebobrow"><b>Github</b></a>.
+	</p>
+</footer>
+
+</body>
+</html>
