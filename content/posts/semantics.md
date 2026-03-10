@@ -3,7 +3,7 @@ title: "Semantics"
 date: 2025-07-26T16:58:31+02:00
 slug: 2025-07-26-semantics
 type: posts
-draft: true
+draft: false
 tags:
   - PLs
 ---

@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Elliot&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Jul 2025 16:58:31 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 10:07:53 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why is it called Call-By-Push-Value?</title>
+      <link>http://localhost:1313/posts/2026-03-08-cbpv/</link>
+      <pubDate>Sun, 08 Mar 2026 10:07:53 -0700</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-08-cbpv/</guid>
+      <description>&lt;p&gt;Call-by-push-value (CBPV) is a programming language that subsumes call-by-name&#xA;(CBN) and call-by-value (CBV) semantics, making it useful to reason about&#xA;effectful computations. But why is it called that?&lt;/p&gt;&#xA;&lt;h2 id=&#34;call-by-name-and-call-by-value&#34;&gt;Call-by-name and call-by-value&lt;/h2&gt;&#xA;&lt;p&gt;First, we should motivate CBPV by explaining what CBN and CBV are. To start out&#xA;with, we will only consider the basic lambda calculus with no effects. The&#xA;important rule here when expressing the lambda calculus&amp;rsquo;s semantics is&#xA;$\beta$-reduction: How do we apply a function?&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Semantics</title>
       <link>http://localhost:1313/posts/2025-07-26-semantics/</link>
