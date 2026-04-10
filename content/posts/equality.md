@@ -121,6 +121,8 @@ But that's easy: it's the $\textsf{refl}$ term. Therefore, we derive that
 $$
 a:A,b:A,p:a=_Ab \vdash J_A(\textsf{refl}_A(a), a, b, p) : b =_A a
 $$
+This proves that equality is commutative.
+
 Typal equality is looser than judgmental equality, in the sense that any two
 terms which are judgmentally equal must also be typally equal. Suppose $\Gamma
 \vdash x \equiv y : A$. Then, the rules of judgmental equality give us that
@@ -142,9 +144,9 @@ true? It turns out that the answer is no.
 
 We might be content to call it a day here. With identity types, we now have a
 way to reason about equality within our type theory. However, this is not the
-end of the story. Identity types are somewhat limited in their expressivity. A
-common example is that of functional extensionality: It might make sense to have
-a rule that, for some functions $f,g:A \rightarrow B$, as long as
+end of the story. We are still somewhat limited in our expressivity. A common
+example is that of functional extensionality: It might make sense to have a rule
+that, for some functions $f,g:A \rightarrow B$, as long as
 $$
 \forall x:A. f(a) = g(a)
 $$
@@ -156,8 +158,8 @@ $$
 $$
 This is not possible with our identity types because these are not, strictly
 speaking, the same function, nor can they reduce to the same function. One
-solution to this problem is to introduct extensional type theory, which is just
-our existing theory with one additional rule:
+solution to this problem is to introduce extensional type theory, which is just
+our existing theory with an additional rule:
 $$
 \frac{\Gamma \vdash p : a =_A b}
      {\Gamma \vdash a \equiv b : A}
@@ -202,5 +204,13 @@ We can't know. For this reason, a lot of people avoid extensional type theory in
 favor of decidable systems, like Homotopy Type Theory. Someday I will understand
 Homotopy Type Theory, but is the me writing this post equal to the me that
 understands HoTT? That's decidable: No.
+
+## Sources
+
+1. [nLab extensional type theory](https://ncatlab.org/nlab/show/extensional+type+theory)
+2. [Stanford Encyclopedia of Philosophy Intuitionistic Type Theory](https://plato.stanford.edu/entries/type-theory-intuitionistic)
+3. [Steve Awodey's Notes on Type Theory](https://awodey.github.io/typetheory/notes/typetheory.pdf)
+4. [The HoTT Book](https://homotopytypetheory.org/wp-content/uploads/2013/03/hott-online-323-g28e4374.pdf)
+5. *Extensional Constructs in Intensional Type Theory,* Martin Hoffman
 
 [^1]: Proof from [here](https://cstheory.stackexchange.com/questions/46331/extensional-type-theory-and-function-extensionality).

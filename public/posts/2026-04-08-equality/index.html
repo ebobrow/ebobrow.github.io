@@ -9,7 +9,7 @@
 	
 	
 	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css?rnd=1775795399">
+	<link rel="stylesheet" href="/css/custom.css?rnd=1775830314">
 	
     <script>
     MathJax = {
@@ -174,7 +174,8 @@ But that&rsquo;s easy: it&rsquo;s the $\textsf{refl}$ term. Therefore, we derive
 $$
 a:A,b:A,p:a=_Ab \vdash J_A(\textsf{refl}_A(a), a, b, p) : b =_A a
 $$<p>
-Typal equality is looser than judgmental equality, in the sense that any two
+This proves that equality is commutative.</p>
+<p>Typal equality is looser than judgmental equality, in the sense that any two
 terms which are judgmentally equal must also be typally equal. Suppose $\Gamma
 \vdash x \equiv y : A$. Then, the rules of judgmental equality give us that
 </p>
@@ -192,9 +193,9 @@ true? It turns out that the answer is no.</p>
 <h2 id="extensional-vs-intensional-systems">Extensional vs Intensional Systems</h2>
 <p>We might be content to call it a day here. With identity types, we now have a
 way to reason about equality within our type theory. However, this is not the
-end of the story. Identity types are somewhat limited in their expressivity. A
-common example is that of functional extensionality: It might make sense to have
-a rule that, for some functions $f,g:A \rightarrow B$, as long as
+end of the story. We are still somewhat limited in our expressivity. A common
+example is that of functional extensionality: It might make sense to have a rule
+that, for some functions $f,g:A \rightarrow B$, as long as
 </p>
 $$
 \forall x:A. f(a) = g(a)
@@ -208,8 +209,8 @@ $$
 $$<p>
 This is not possible with our identity types because these are not, strictly
 speaking, the same function, nor can they reduce to the same function. One
-solution to this problem is to introduct extensional type theory, which is just
-our existing theory with one additional rule:
+solution to this problem is to introduce extensional type theory, which is just
+our existing theory with an additional rule:
 </p>
 $$
 \frac{\Gamma \vdash p : a =_A b}
@@ -256,6 +257,14 @@ We can&rsquo;t know. For this reason, a lot of people avoid extensional type the
 favor of decidable systems, like Homotopy Type Theory. Someday I will understand
 Homotopy Type Theory, but is the me writing this post equal to the me that
 understands HoTT? That&rsquo;s decidable: No.</p>
+<h2 id="sources">Sources</h2>
+<ol>
+<li><a href="https://ncatlab.org/nlab/show/extensional+type+theory">nLab extensional type theory</a></li>
+<li><a href="https://plato.stanford.edu/entries/type-theory-intuitionistic">Stanford Encyclopedia of Philosophy Intuitionistic Type Theory</a></li>
+<li><a href="https://awodey.github.io/typetheory/notes/typetheory.pdf">Steve Awodey&rsquo;s Notes on Type Theory</a></li>
+<li><a href="https://homotopytypetheory.org/wp-content/uploads/2013/03/hott-online-323-g28e4374.pdf">The HoTT Book</a></li>
+<li><em>Extensional Constructs in Intensional Type Theory,</em> Martin Hoffman</li>
+</ol>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
