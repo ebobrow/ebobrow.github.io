@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type=text/css>body{font-family:monospace;}</style>
+	<title>Equality in Type Theory</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css?rnd=1775795399">
+	
+    <script>
+    MathJax = {
+        tex: {
+            displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+            inlineMath: [['\\(', '\\)'], ['$', '$']],     
+
+            
+        },
+        loader:{
+            load: ['ui/safe']
+        },
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+<body>
+	<header>
+	===================<br>
+	== <a href="http://localhost:1313/">Elliot&#39;s Blog</a> ==<br>
+	===================
+	<div style="float: right;">&#34;Oh good, another blog by a theoretical CS student!&#34; - No one</div><br>
+	<p>
+	<nav>
+			<a href="/"><b>Home</b></a>.
+			
+			
+			<a href="/about/"><b>About</b></a>.
+			
+			<a href="/posts/"><b>Posts</b></a>.
+			
+			<a href="/tags/"><b>Tags</b></a>.
+			
+	</nav>
+	</p>
+	
+</header>
+
+	
+	<main>
+		<article>
+			<h1>Equality in Type Theory</h1>
+			<b><time>08.04.2026</time></b>
+		       
+		           <a href="/tags/pls">PLs</a>
+        	       
+		           <a href="/tags/type-theory">Type Theory</a>
+        	       
+
+           
+           
+           </div>
+
+			<div>
+                
+                
+                <p>As math gets more advanced, the things you prove get dumber and dumber. In
+Calculus, you prove really cool things like &ldquo;This sum of infinitely many real
+numbers equals a finite number!&rdquo; Then you take Analysis where you have to
+explain &ldquo;What is infinity?&rdquo; and &ldquo;What is a real number?&rdquo; and &ldquo;What is equals?&rdquo;</p>
+<p>The answer to the last question, as it turns out, is, &ldquo;Nobody knows.&rdquo;</p>
+<h2 id="word-to-the-wise">Word to the Wise</h2>
+<p>The secret to PL theory is that we take a collection of very common symbols,
+strip them of their meaning entirely, and then build it back from the ground up.
+For the rest of this post, to protect your sanity, kindly forget everything you
+think you know about $\equiv$ and $=$. We may as well use 🐒 and 🪕.</p>
+<h2 id="syntactic-equality">Syntactic Equality</h2>
+<p>The simplest (and strictest) form of equality is syntactic equality. Two
+expressions are syntactically equal if they were literally constructed the same
+way. Therefore, $a+b$ is syntactically equal to $a+b$ but it is not
+syntactically equal to $b+a$. The benefit of syntactic equality is that it is
+straightforward to implement and it is definitely decidable. However, it misses
+some equalities that you might expect, such as
+</p>
+$$
+\lambda a. a \neq_S \lambda b. b
+$$<p>
+</p>
+$$
+(\lambda a. a) \, x \neq_S x
+$$<h2 id="judgmentaldefinitional-equality">Judgmental/Definitional Equality</h2>
+<p>We can get a little more clever with our equality if we introduce it as a new
+type of judgment in our type theory. Just as you can have $\Gamma \vdash
+A\textsf{ type}$ for &ldquo;$A$ is a type&rdquo; and $\Gamma \vdash a:A$ for &ldquo;the term $a$
+has type $A$,&rdquo; you can also have $\Gamma \vdash A \equiv B$ and $\Gamma \vdash a
+\equiv b : A$ for equality of types and terms, respectively. This approach
+involves the construction of new rules, like
+</p>
+$$
+\frac{\Gamma \vdash A \equiv A' \qquad \Gamma \vdash B \equiv B'}
+     {\Gamma \vdash A \rightarrow B \equiv A' \rightarrow B'}
+$$<p>
+An implementation like this is also referred to as <em>definitional equality</em>
+because it takes into account the definitions of our system. Definitional
+equality essentially allows us to substitute one term anywhere we see another
+because by definition, they are equal. A standard set of equality rules will
+also take into account things like $\beta$-reduction, so that in this system we
+have
+</p>
+$$
+\vdash \lambda a. a \equiv \lambda b. b : A \rightarrow A
+$$<p>
+</p>
+$$
+\vdash (\lambda a. a) \, x \equiv x : A
+$$<p>
+Judgmental equality is still decidable, but a drawback is that we can only use
+it in metatheoretical statements. Inside the type theory, we are totally blind
+to the notion of equality. In order to use equality within our system, we need
+to get a little wild.</p>
+<h2 id="typalpropositional-equality">Typal/Propositional Equality</h2>
+<p>By the Curry-Howard isomorphism, we should be able to express a type that, when
+inhabited, proves that $a=b$. This logical statement involves the use of
+quantified variables, so it can only be expressed in predicate logic. Likewise,
+the type $a=b$ would have to depend on terms, so it can only be expressed in a
+dependent type theory.</p>
+<p>From now on, we will deal in Martin-Löf type theory. This is the simply typed
+lambda calculus extended with dependent products (analogous to universal
+quantification in logic) and dependent sums (analogous to existential
+quantification). Product types are inhabited by functions, whose return type may
+depend on their input, and sum types are inhabited by pairs, where the first
+element can be thought of as the witness and the second element a proof of the
+desired property.</p>
+<p>In this type theory, we can define identity types. Intuitively, these represent
+the smallest reflexive closure&mdash;every term equals itself and nothing else.
+Formally, we define the type $a=_Ab$ where $a$ and $b$ are terms and $A$ is a
+type. Its introduction form is the term $\textsf{refl}_A(a)$, with the rule
+</p>
+$$
+\frac{\Gamma \vdash a : A}
+     {\Gamma \vdash \textsf{refl}_A(a) : a =_A a}
+$$<p>
+This might feel a bit silly, but what it allows us to do is to reason about
+variables. Because we are defining equality to be the <em>smallest</em> reflexive
+closure, we know that if we want to do something with a proof that $x$ is equal
+to something else, we need only consider the case where $x$ equals itself. We
+define an elimination form for the identity type as a sort of structural
+induction. The term is called $J$ for reasons beyond my understanding, and the
+rule is
+</p>
+$$
+\frac{\Gamma,a:A,b:A,p:a=_Ab \vdash C\textsf{ type} \qquad \Gamma,c:A \vdash t :
+C[c/a, c/b, \textsf{refl}_A(c)/p]}
+     {\Gamma,a:A,b:A,p:a=_Ab \vdash J_A(t,a,b,p) : C}
+$$<p>
+Oh boy. Let&rsquo;s break this down. In our context, we have terms $a$ and $b$ and a
+proof that they are equal. With this proof, we wish to prove something new. The
+typing rule for $J$ essentially states that, if we can prove this new thing
+about some arbitrary term $c$ using a proof that $c=_Ac$, then it must hold in
+every case. Because that is the <em>only</em> possible case. We pass a proof term $t$
+proving this for the specialized case, and what we get is a proof in the general
+case.</p>
+<p>As a simple example, suppose we wish to prove that $a=_Ab \rightarrow b=_Aa$.
+After some proof work, we end up with $a:A,b:A,a=_Ab$ in our context. Now, we
+need to pass the right arguments to $J$ so that its type $C$ is $b=_Aa$. The
+left premise is satisfied because $b$ and $a$ are valid terms, so the identity
+type is a valid type. Next, we look at the right premise. After the
+substitutions, we get the type $c=_Ac$. We need some term $t$ with this type.
+But that&rsquo;s easy: it&rsquo;s the $\textsf{refl}$ term. Therefore, we derive that
+</p>
+$$
+a:A,b:A,p:a=_Ab \vdash J_A(\textsf{refl}_A(a), a, b, p) : b =_A a
+$$<p>
+Typal equality is looser than judgmental equality, in the sense that any two
+terms which are judgmentally equal must also be typally equal. Suppose $\Gamma
+\vdash x \equiv y : A$. Then, the rules of judgmental equality give us that
+</p>
+$$
+\begin{prooftree}
+    \AXC{}
+    \UIC{$\Gamma \vdash x \equiv y : A$}
+    \UIC{$\Gamma \vdash (x =_A y) \equiv (x =_A x)$}
+    \AXC{}
+    \UIC{$\Gamma \vdash \textsf{refl}_A(x) : x =_A x$}
+    \BIC{$\Gamma \vdash \textsf{refl}_A(x) : x =_A y$}
+\end{prooftree}
+$$<p>Now we see that all judgmentally terms are typally equal, but is the converse
+true? It turns out that the answer is no.</p>
+<h2 id="extensional-vs-intensional-systems">Extensional vs Intensional Systems</h2>
+<p>We might be content to call it a day here. With identity types, we now have a
+way to reason about equality within our type theory. However, this is not the
+end of the story. Identity types are somewhat limited in their expressivity. A
+common example is that of functional extensionality: It might make sense to have
+a rule that, for some functions $f,g:A \rightarrow B$, as long as
+</p>
+$$
+\forall x:A. f(a) = g(a)
+$$<p>
+then $f=g$. In other words, we don&rsquo;t care about the function definitions
+themselves as long as their behavior is the same on every input. For example, to
+return to our old addition function, we may want to be able to prove
+</p>
+$$
+\vdash (\lambda x. x + 1) =_\textsf{nat} (\lambda x. 1 + x)
+$$<p>
+This is not possible with our identity types because these are not, strictly
+speaking, the same function, nor can they reduce to the same function. One
+solution to this problem is to introduct extensional type theory, which is just
+our existing theory with one additional rule:
+</p>
+$$
+\frac{\Gamma \vdash p : a =_A b}
+     {\Gamma \vdash a \equiv b : A}
+$$<p>
+We&rsquo;ve already seen that judgmental equality implies typal equality, so by adding
+the reverse direction we&rsquo;ve now removed the distinction between judgmental
+equality and typal equality.</p>
+<p>This gives us some nice properties like functional extensionality.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> Suppose
+$r : \prod_{x:A} f(x) =_{B(y)} g(x)$. That is, $r$ is a proof that $f$ and $g$
+agree on all inputs. This means that
+</p>
+$$
+y : A \vdash r(y) : f(y) =_{B(y)} g(y),
+$$<p>
+and applying our new equality reflection rule, we get
+</p>
+$$
+y:A \vdash f(y) \equiv g(y) : B(y).
+$$<p>
+This allows us to derive $(\lambda y:A. f(y)) \equiv (\lambda y:A. g(y)) : \prod_{x:A} B(x)$
+and therefore $f \equiv g : \prod_{x:A} B(x)$. Finally, we can substitute $g$
+for $f$ in the type of $\textsf{refl}(f)$ to get
+</p>
+$$
+\vdash \textsf{refl}(f) : f = g.
+$$<p>
+Therefore, if $f$ and $g$ agree on all inputs, we can derive their equality.</p>
+<p>The basic idea of functional extensionality is that you can look into the
+definition of a function to check for equality. A similar principle applies to
+dependent pairs.</p>
+<p>So this is great! Now our equality is smart, and it has a lot of nice
+properties. But the downside of an extensional type theory is that equality is
+no longer decidable. This makes sense: Now that we have functional
+extensionality, is $f(x):=0$ equal to
+</p>
+$$
+g(x) := \begin{cases}
+0 & \text{if the Riemann hypothesis holds} \\
+1 & \text{otherwise?}
+\end{cases}
+$$<p>
+We can&rsquo;t know. For this reason, a lot of people avoid extensional type theory in
+favor of decidable systems, like Homotopy Type Theory. Someday I will understand
+Homotopy Type Theory, but is the me writing this post equal to the me that
+understands HoTT? That&rsquo;s decidable: No.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Proof from <a href="https://cstheory.stackexchange.com/questions/46331/extensional-type-theory-and-function-extensionality">here</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">⮠</a></p>
+</li>
+</ol>
+</div>
+
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/2026-04-08-equality/">Equality in Type Theory</a></li>
+				
+				<li><a href="/posts/2026-03-08-cbpv/">Why is it called Call-By-Push-Value?</a></li>
+				
+				<li><a href="/posts/2025-07-26-semantics/">Semantics</a></li>
+				
+				<li><a href="/posts/type-theory/">What even is type theory?</a></li>
+				
+				<li><a href="/posts/miu/">MU Puzzle in Automated Theorem Provers</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	<footer>
+	<p>&copy; 2026 <a href="http://localhost:1313/"><b>Elliot&#39;s Blog</b></a>.
+	<a href="https://github.com/ebobrow"><b>Github</b></a>.
+	</p>
+</footer>
+
+</body>
+</html>

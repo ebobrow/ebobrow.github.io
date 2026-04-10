@@ -6,8 +6,15 @@
     <description>Recent content in Type Theory on Elliot&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 May 2025 19:08:38 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 09:54:44 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/type-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Equality in Type Theory</title>
+      <link>http://localhost:1313/posts/2026-04-08-equality/</link>
+      <pubDate>Wed, 08 Apr 2026 09:54:44 -0700</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-08-equality/</guid>
+      <description>&lt;p&gt;As math gets more advanced, the things you prove get dumber and dumber. In&#xA;Calculus I, you prove really cool things like &amp;ldquo;This sum of infinitely many real&#xA;numbers equals a finite number!&amp;rdquo; Then you take Analysis where you have to&#xA;explain &amp;ldquo;What is infinity?&amp;rdquo; and &amp;ldquo;What is a real number?&amp;rdquo; and &amp;ldquo;What is equals?&amp;rdquo;&lt;/p&gt;&#xA;&lt;p&gt;The answer to the last question, as it turns out, is, &amp;ldquo;Nobody knows.&amp;rdquo;&lt;/p&gt;&#xA;&lt;h2 id=&#34;word-to-the-wise&#34;&gt;Word to the Wise&lt;/h2&gt;&#xA;&lt;p&gt;The secret to PL theory is that we take a collection of very common symbols,&#xA;strip them of their meaning entirely, and then build it back from the ground up.&#xA;For the rest of this post, to protect your sanity, kindly forget everything you&#xA;think you know about $\equiv$ and $=$. We may as well use 🐒 and 🪕.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>What even is type theory?</title>
       <link>http://localhost:1313/posts/type-theory/</link>
