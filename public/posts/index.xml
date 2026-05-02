@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Elliot&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Apr 2026 09:54:44 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2026 12:40:59 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Products, Exponentials, and Adjoint Functors</title>
+      <link>http://localhost:1313/posts/2026-04-25-adjoint/</link>
+      <pubDate>Sat, 25 Apr 2026 12:40:59 -0700</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-25-adjoint/</guid>
+      <description>&lt;p&gt;In category theory, you often think something is a certain type of thing but&#xA;actually it turns out to also be a different type of thing. In a first&#xA;introduction, it appears that functors are somehow one level higher than&#xA;morphisms, because functors map morphisms to morphisms. Similarly, natural&#xA;transformations should be one level higher than functors because they map&#xA;functors to functors. This is true if you want to be closed-minded and sad. But&#xA;it ignores a beautiful thing about category theory: it is so abstract and&#xA;general that it can do category theory about itself.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Equality in Type Theory</title>
       <link>http://localhost:1313/posts/2026-04-08-equality/</link>
